@@ -1,0 +1,9 @@
+FROM eboraas/apache-php 
+
+RUN apt-get update
+RUN apt-get install wget --yes
+RUN cd ~
+RUN wget https://phar.phpunit.de/phpunit.phar
+RUN chmod +x phpunit.phar
+RUN mv phpunit.phar /usr/bin/phpunit
+RUN phpunit --version
