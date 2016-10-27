@@ -1,0 +1,21 @@
+FROM eboraas/apache-php
+
+RUN apt-get update
+
+## wget
+RUN apt-get install wget --yes
+RUN cd ~
+RUN wget https://phar.phpunit.de/phpunit.phar
+
+## PHPUnit
+RUN chmod +x phpunit.phar
+RUN mv phpunit.phar /usr/bin/phpunit
+RUN phpunit --version
+
+## Xdebug
+RUN apt-get -y install php5-xdebug
+ADD docker/xdebug.ini /etc/php5/mods-available/xdebug.ini
+
+
+## PORTS
+EXPOSE 9000

@@ -1,29 +1,26 @@
 version: '2'
-
-volumes:
-  data:
-    driver: local
 services:
   web:
+    container_name: olxtest_web
     build:
       context: .
-      dockerfile: "Dockerfile.web"
+      dockerfile: "docker/Dockerfile.web"
     links:
       - db
     ports: 
       - "8081:80"
     volumes:
-      - data
+      - .:/var/www/html
   db:
-    build:
-      context: .
-      dockerfile: "Dockerfile.db"
+    container_name: olxtest_db
+    image: mysql
     ports:
       - "3307:3306"
-    volumes:
-      - data:/tmp:rw
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: dev
       MYSQL_PASSWORD: dev
       MYSQL_DATABASE: test
+    volumes:
+      - ./docker/data:/docker-entrypoint-initdb.d
+
