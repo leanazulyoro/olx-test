@@ -1,7 +1,5 @@
 <?php
 
-use olxtest\TestClass;
-
 
 /**
  * Class UserApiTests
@@ -18,17 +16,5 @@ class UserApiTests extends PHPUnit_Framework_TestCase {
     $this->assertEquals($a, $b);
 
   }
-
-
-  /**
-   * @group testTest
-   */
-  public function testTest2() {
-    $a = TestClass::testmethod();
-
-    $this->assertEquals($a, 'hola');
-
-  }
-
 
 }
