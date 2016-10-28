@@ -1,7 +1,6 @@
 <?php
 
-namespace olxtest\model;
-
+namespace olxtest\models;
 
 use olxtest\helper\data_type_validator\DataTypeValidator;
 
@@ -14,8 +13,12 @@ class User {
   function __construct($id, $name, $picture, $address) {
     $this->id = DataTypeValidator::isIntegerOrThrow($id);
     $this->name = DataTypeValidator::isStringOrThrow($name);
-    $this->picture = DataTypeValidator::isStringOrThrow($picture);
-    $this->address = DataTypeValidator::isStringOrThrow($address);
+    if(!empty($picture)) {
+      $this->picture = DataTypeValidator::isUrlOrThrow($picture);
+    }
+    if(!empty($address)) {
+      $this->address = DataTypeValidator::isStringOrThrow($address);
+    }
   }
 
   /**
@@ -44,6 +47,11 @@ class User {
    */
   public function getAddress() {
     return $this->address;
+  }
+
+  public function jsonSerialize()
+  {
+    return get_object_vars($this);
   }
 
 }

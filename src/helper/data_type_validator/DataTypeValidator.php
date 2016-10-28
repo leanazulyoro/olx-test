@@ -1,6 +1,7 @@
 <?php
 
 namespace olxtest\helper\data_type_validator;
+
 use olxtest\helper\data_type_validator\exception\DataTypeException;
 
 class DataTypeValidator {
