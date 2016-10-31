@@ -1,16 +1,23 @@
 ## Instructions:
 
-#### 1) Build docker:
+#### 1) Run Composer:
+Go to the project directory and run:
+```bash
+composer install
+```
+
+
+#### 2) Build docker:
 ```bash
 docker-compose up -d
 ```
 
-#### 2) Use the api:
+#### 3) Use the api:
 Go to [http://localhost:8081/user.php?uid=2](http://localhost:8081/user.php) to start using the api!.
 
-To get a taste a other supported methos, import provided [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related?utm_source=chrome-ntp-icon)
+To get a taste a other supported methods, import provided [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related?utm_source=chrome-ntp-icon)
  collection (*postman-collection-olxtest.json*)
-#### 3) Run tests:
+#### 4) Run tests:
 Use phpunit.xml to run tests
 
 ## Future Improvements:
