@@ -21,5 +21,6 @@ To get a taste a other supported methods, import provided [Postman](https://chro
 Use phpunit.xml to run tests
 
 ## Future Improvements:
+- Better Error Handling
 - Prevent SQL injection and check security overall
 - Better Test Coverage
