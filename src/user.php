@@ -56,7 +56,9 @@ switch ($method) {
         $response = json_decode(curl_exec($curl_handle));
         curl_close($curl_handle);
 
-        $fields['picture'] = 'https://images01.olx-st.com/' . $response->url;
+        if($response->url){
+          $fields['picture'] = 'https://images01.olx-st.com/' . $response->url;
+        } 
 
       }
     }
