@@ -1,33 +1,33 @@
 <?php
 
-use olxtest\api\UserApi;
+require_once 'MockMysqli.php';
 
-require_once __DIR__ .'/../src/init.php';
-include __DIR__ . '/../vendor/autoload.php';
+use olxtest\api\UserApi;
 
 /**
  * Class UserApiTests
  */
 class UserApiTests extends PHPUnit_Framework_TestCase {
 
-  /**
-   * @group testTest
-   */
-  public function testTest() {
-    $a = '1';
-    $b = '1';
-
-    $this->assertEquals($a, $b);
-
-  }
-  
   public function testGet() {
-    $dblink = dbconnect();
-    $api = new UserApi($dblink);
+    $api = new UserApi(new MockMysqli());
     $json = $api->get(1);
-    $expected = '{"id":1,"name":"Carlos","picture":null,"address":null}';
-    $this->assertEquals($json, $expected);
-
+    $expected = '{"id":1,"name":"Carlos","picture":"http:\/\/example.com\/img.jpg","address":"Avenida Corriente 3456"}';
+    $this->assertEquals($expected, $json);
   }
-  
+
+  public function testPost(){
+    $api = new UserApi(new MockMysqli());
+    $uid_to_update = 1;
+    $fields_to_update = array('name' => 'Carlos');
+    $updated = json_decode($api->update($uid_to_update, $fields_to_update));
+
+    $this->assertEquals($fields_to_update['name'], $updated->name);
+  }
+
+  public function testDelete(){
+    $api = new UserApi(new MockMysqli());
+    $response = $api->delete(1);
+    $this->assertEquals('Record deleted successfully', $response);
+  }
 }
