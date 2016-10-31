@@ -2,6 +2,9 @@ FROM eboraas/apache-php
 
 RUN apt-get update
 
+## Curl
+RUN apt-get install php5-curl --yes
+
 ## wget
 RUN apt-get install wget --yes
 RUN cd ~
