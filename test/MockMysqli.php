@@ -1,35 +1,38 @@
 <?php
 
 
-class MockMysqli {
+class MockMysqli
+{
 
-  public $num_rows = 1;
+    public $num_rows = 1;
 
-  public function query($sql){
+    public function query($sql)
+    {
 
-    $sql_parts = explode(' ', $sql);
+        $sql_parts = explode(' ', $sql);
 
-    switch ($sql_parts[0]) {
-      case 'UPDATE':
-      case 'DELETE':
-        return TRUE;
-        break;
-      default:
-        return $this;
-        break;
+        switch ($sql_parts[0]) {
+            case 'UPDATE':
+            case 'DELETE':
+                return true;
+                break;
+            default:
+                return $this;
+                break;
+        }
+
     }
 
-  }
+    public function fetch_assoc()
+    {
 
-  public function fetch_assoc() {
+        return array(
+          'id' => 1,
+          'name' => 'Carlos',
+          'picture' => "http://example.com/img.jpg",
+          'address' => "Avenida Corriente 3456"
+        );
 
-    return array(
-      'id' => 1,
-      'name' => 'Carlos',
-      'picture' => "http://example.com/img.jpg",
-      'address' => "Avenida Corriente 3456"
-    );
-
-  }
+    }
 
 }

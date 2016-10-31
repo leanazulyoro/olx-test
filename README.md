@@ -1,3 +1,7 @@
+## About:
+This project builds a basic User API.
+PSR1/PSR2 Coding Style was used.
+
 ## Instructions:
 
 #### 1) Run Composer:

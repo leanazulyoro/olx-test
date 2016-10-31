@@ -13,63 +13,63 @@ $api = new UserApi($dblink);
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
-  case 'GET':
-    if ($uid = $_GET['uid']) {
-      echo $api->get($uid);
-      exit;
+    case 'GET':
+        if ($uid = $_GET['uid']) {
+            echo $api->get($uid);
+            exit;
 
-    }
-    break;
-
-  case 'POST':
-    if(isset($_POST['id'])) {
-
-      // get fields to upload
-      $fields = array();
-      foreach($_POST as $key => $value){
-        if($key == 'id'){
-          $uid = $value;
-        } else {
-          $fields[$key] = $value;
         }
-      }
+        break;
 
-      // upload image
-      $file = $_FILES['picture'];
-      if ($file['error'] == UPLOAD_ERR_OK) {
+    case 'POST':
+        if (isset($_POST['id'])) {
 
-        $tmpfile = $file['tmp_name'];
-        $filename = basename($file['name']);
-        $filetype = $file['type'];
+            // get fields to upload
+            $fields = array();
+            foreach ($_POST as $key => $value) {
+                if ($key == 'id') {
+                    $uid = $value;
+                } else {
+                    $fields[$key] = $value;
+                }
+            }
 
-        $POST_DATA = array(
-          'file' => curl_file_create($tmpfile, $filetype, $filename)
-        );
+            // upload image
+            $file = $_FILES['picture'];
+            if ($file['error'] == UPLOAD_ERR_OK) {
 
-        // Connecting to external api via cURL
-        $curl_handle = curl_init("https://api.olx.com/v1.0/users/images");
-        curl_setopt($curl_handle, CURLOPT_POST, 1);
-        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $POST_DATA);
-        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+                $tmpfile = $file['tmp_name'];
+                $filename = basename($file['name']);
+                $filetype = $file['type'];
 
-        //execute the API Call
-        $response = json_decode(curl_exec($curl_handle));
-        curl_close($curl_handle);
+                $POST_DATA = array(
+                  'file' => curl_file_create($tmpfile, $filetype, $filename)
+                );
 
-        if($response->url){
-          $fields['picture'] = 'https://images01.olx-st.com/' . $response->url;
-        } 
+                // Connecting to external api via cURL
+                $curl_handle = curl_init("https://api.olx.com/v1.0/users/images");
+                curl_setopt($curl_handle, CURLOPT_POST, 1);
+                curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $POST_DATA);
+                curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
 
-      }
-    }
+                //execute the API Call
+                $response = json_decode(curl_exec($curl_handle));
+                curl_close($curl_handle);
 
-    echo $api->update($uid, $fields);
+                if ($response->url) {
+                    $fields['picture'] = 'https://images01.olx-st.com/' . $response->url;
+                }
 
-    break;
+            }
+        }
 
-  case 'DELETE':
-    echo $api->delete($_REQUEST['uid']);
-    break;
+        echo $api->update($uid, $fields);
+
+        break;
+
+    case 'DELETE':
+        echo $api->delete($_REQUEST['uid']);
+        break;
 
 }
 
