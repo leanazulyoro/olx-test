@@ -20,7 +20,7 @@ docker-compose up -d
 Go to [http://localhost:8081/src/user.php?uid=2](http://localhost:8081/src/user.php) to start using the api!.
 
 To get a taste of other supported methods, import provided [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related?utm_source=chrome-ntp-icon)
- collection (*postman-collection-olxtest.json*)
+ collection (*postman-collection-user-rest-api.json*)
 #### 4) Run tests:
 Use phpunit.xml to run tests
 
